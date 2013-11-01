@@ -1,8 +1,12 @@
 from django.conf.urls.defaults import patterns, include, url
+from django.contrib import admin
+from PSI_projektas import stock_info
+from django.contrib.sites.models import Site
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
-# admin.autodiscover()
+admin.autodiscover()
+admin.site.unregister(Site)
 
 urlpatterns = patterns('',
     # Examples:
@@ -13,5 +17,6 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
+    #url(r'^admin/', include(stock_info.urls)),
 )
