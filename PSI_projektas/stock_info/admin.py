@@ -3,12 +3,15 @@ from django.contrib import admin
 from PSI_projektas.stock_info.models import Customer, StockBalance,\
     StockKeepingUnit, LogInfo, Operation, Orderfailure
 
+def exportCSV(request, queryset):
+    pass
+    
 class CustomerAdmin(CustomModelAdmin):
     class Media:
         js=('customer.js')
 
 class StockBalanceAdmin(CustomModelAdmin):
-    pass
+    actions = [exportCSV,]
 
 class StockKeepingUnitAdmin(CustomModelAdmin):
     pass
@@ -21,6 +24,8 @@ class OperationAdmin(CustomModelAdmin):
 
 class OrderFailureAdmin(CustomModelAdmin):
     pass
+
+
 
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(StockBalance, StockBalanceAdmin)
