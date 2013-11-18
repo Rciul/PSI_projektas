@@ -1,0 +1,11 @@
+#navigation > ul {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+#navigation > ul > li {
+	display: inline;
+	margin: 0px 30px;
+}
+.menu-item{
+	display: inline;
+}

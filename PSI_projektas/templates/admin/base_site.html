@@ -1,10 +1,21 @@
 {% extends "admin/base.html" %}
-{% load i18n %}
+{% load i18n admin_static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "/static/admin/css/nav-global.css" %}" />{% endblock %}
 
 {% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
 
 {% block branding %}
-<h1 id="site-name">{% trans 'Django administration' %}</h1>
+<h1 id="site-name">{% trans 'Django administration' %} </h1>
 {% endblock %}
 
-{% block nav-global %}{% endblock %}
+{% block nav-global %}
+<nav id="navigation">
+	<ul>
+		<li>Prekių judėjimas</li>
+		<li>Aptarnavimo kokybė</li>
+		<li>Užsakymo neįvykdymo priežastys</li>
+		<li>Keisti vartotojo duomenis</li>
+	</ul>
+</nav>
+{% endblock %}
