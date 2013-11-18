@@ -16,5 +16,9 @@
 # mydb.commit()
 # cursor.close()
 # print "Done"
-def suma(a, b):
-    return a+b
+def Data_import(file):
+    import csv
+    with open(file, 'rb') as csvfile:
+        spamreader = csv.reader(csvfile, delimiter=';', quotechar='|')
+        for row in spamreader:
+            print ', '.join(row)
