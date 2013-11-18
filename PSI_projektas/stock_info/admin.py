@@ -7,23 +7,25 @@ def exportCSV(request, queryset):
     pass
     
 class CustomerAdmin(CustomModelAdmin):
+    list_display = Customer.list_display
     class Media:
         js=('customer.js')
 
 class StockBalanceAdmin(CustomModelAdmin):
-    actions = [exportCSV,]
+    list_display = StockBalance.list_display
+
 
 class StockKeepingUnitAdmin(CustomModelAdmin):
-    pass
+    list_display = StockKeepingUnit.list_display
 
 class LogInfoAdmin(CustomModelAdmin):
-    pass
+    list_display = LogInfo.list_display
 
 class OperationAdmin(CustomModelAdmin):
-    pass
+    list_display = Operation.list_display
 
 class OrderFailureAdmin(CustomModelAdmin):
-    pass
+    list_display = Orderfailure.list_display
 
 
 

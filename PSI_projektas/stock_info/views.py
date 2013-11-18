@@ -16,9 +16,17 @@
 # mydb.commit()
 # cursor.close()
 # print "Done"
-def Data_import(file):
+from PSI_projektas.stock_info.models import Operation, Orderfailure
+def Data_import(f):
     import csv
-    with open(file, 'rb') as csvfile:
-        spamreader = csv.reader(csvfile, delimiter=';', quotechar='|')
-        for row in spamreader:
-            print ', '.join(row)
+    
+    with open(f, 'rb') as csvfile:
+        data_reader = csv.reader(csvfile, delimiter=';', quotechar='|')
+        for row in data_reader:
+            import pdb
+            pdb.set_trace()
+            operation_id = row[0].encode('utf-8')
+            reason = row[1].encode('utf-8')
+            opertation_ID = Operation.objects.get(operation_id=operation_id)
+            Orderfailure.objects.create(operation = opertation_ID, reason = reason)
+            print operation_id+' - '+reason
