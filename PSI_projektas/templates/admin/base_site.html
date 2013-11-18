@@ -14,8 +14,14 @@
 	<ul>
 		<li>Prekių judėjimas</li>
 		<li>Aptarnavimo kokybė</li>
-		<li>Užsakymo neįvykdymo priežastys</li>
-		<li>Keisti vartotojo duomenis</li>
+		<li>
+			<a href="/admin/stock_info/orderfailure">{% trans 'Reasons of order failures' %}</a>
+		</li>
+		<li>
+		{% if user.has_usable_password %}
+            <a href="{% url 'admin:password_change' %}">{% trans 'Change user data' %}</a>	
+        {% endif %}
+        </li>
 	</ul>
 </nav>
 {% endblock %}
