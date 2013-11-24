@@ -3,7 +3,6 @@
 	<name>PSI_projektas</name>
 	<comment></comment>
 	<projects>
-		<project>PSI_svetaine</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
@@ -11,9 +10,15 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>com.aptana.ide.core.unifiedBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>org.python.pydev.pythonNature</nature>
+		<nature>com.aptana.projects.webnature</nature>
 		<nature>org.python.pydev.django.djangoNature</nature>
+		<nature>org.python.pydev.pythonNature</nature>
 	</natures>
 </projectDescription>

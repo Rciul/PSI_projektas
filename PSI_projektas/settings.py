@@ -139,7 +139,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'contrib',
     'django.contrib.admin',
-    'oracle'
+    #'oracle'
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
