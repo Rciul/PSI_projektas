@@ -31,6 +31,7 @@ class OrderFailureAdmin(CustomModelAdmin):
 
 
 
+
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(StockBalance, StockBalanceAdmin)
 admin.site.register(StockKeepingUnit, StockKeepingUnitAdmin)
