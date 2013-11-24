@@ -59,6 +59,8 @@ def Data_export():
 #         Orderfailure.objects.create(operation = opertation_ID, reason = reason)
 #         print operation_id+' - '+reason
 
+def handleAction(request):
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
 def File_form(request):
     if request.method == 'GET':
         form = FileForm()
