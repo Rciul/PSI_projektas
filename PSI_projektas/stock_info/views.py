@@ -46,7 +46,7 @@ def Data_import(f):
 def Data_export(queryset):
     import csv
     export_list = queryset.values_list('operation__operation_id', 'reason', 'amount')
-    name_file = "exporttest/export%s.csv" % datetime.date.today()
+    
     output = StringIO.StringIO()
     for row in export_list:
         print_str = ';'.join(['%s' % r for r in row])+"\n"
