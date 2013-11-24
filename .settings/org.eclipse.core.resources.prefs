@@ -1,0 +1,6 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=077d1463cf0a88100fb796119d5d93bdcc5c8466
+eclipse.preferences.version=1
+encoding//PSI_projektas/stock_info/migrations/0005_move_data_from_oracle.py=utf-8
+encoding//PSI_projektas/stock_info/migrations/0006_auto__chg_field_stockkeepingunit_group__add_field_orderfailure_date__a.py=utf-8

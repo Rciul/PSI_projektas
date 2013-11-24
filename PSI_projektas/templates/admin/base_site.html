@@ -12,10 +12,21 @@
 {% block nav-global %}
 <nav id="navigation">
 	<ul>
-		<li>{% trans "Product flow" %}</li>
-		<li>Aptarnavimo kokybė</li>
-		<li>Užsakymo neįvykdymo priežastys</li>
-		<li>Keisti vartotojo duomenis</li>
+		<li>
+			<a href="{% url 'admin:index' %}">{% trans "Home" %}</a>
+		</li>
+		<li>
+			<a href="#">{% trans "Product flow" %}</a></li>
+		<li>
+			<a href="#">{% trans "Quality of service" %}</a></li>
+		<li>
+			<a href="/admin/stock_info/orderfailure">{% trans 'Reasons of order failures' %}</a>
+		</li>
+		<li>
+		{% if user.has_usable_password %}
+            <a href="{% url 'admin:password_change' %}">{% trans 'Change user data' %}</a>	
+        {% endif %}
+        </li>
 	</ul>
 </nav>
 {% endblock %}
