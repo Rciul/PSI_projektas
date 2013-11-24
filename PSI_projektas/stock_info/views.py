@@ -23,8 +23,8 @@ def Data_import(f):
     with open(f, 'rb') as csvfile:
         data_reader = csv.reader(csvfile, delimiter=';', quotechar='|')
         for row in data_reader:
-            import pdb
-            pdb.set_trace()
+            #import pdb
+            #pdb.set_trace()
             operation_id = row[0].encode('utf-8')
             reason = row[1].encode('utf-8')
             opertation_ID = Operation.objects.get(operation_id=operation_id)
