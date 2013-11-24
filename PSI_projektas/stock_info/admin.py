@@ -11,6 +11,7 @@ import datetime
     
 class CustomerAdmin(CustomModelAdmin):
     list_display = Customer.list_display
+    #list_filter=("city",)
     class Media:
         js=('customer.js')
 
@@ -26,6 +27,7 @@ class LogInfoAdmin(CustomModelAdmin):
 
 class OperationAdmin(CustomModelAdmin):
     list_display = Operation.list_display
+    #list_filter = ("customer",)
 
 class OrderFailureAdmin(CustomModelAdmin):
     list_display = Orderfailure.list_display

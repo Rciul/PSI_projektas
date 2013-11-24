@@ -1,3 +1,6 @@
+from django.shortcuts import render_to_response
+from django.template.context import RequestContext
+
 # Create your views here.
 # import csv
 # import MySQLdb
@@ -79,4 +82,3 @@ def File_form(request):
             </script>"""
             return HttpResponse(close)
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
-
