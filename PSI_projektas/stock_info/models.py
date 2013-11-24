@@ -88,7 +88,7 @@ class Operation (models.Model):
     document = models.CharField('Document', max_length=20)
     direction = models.CharField('Direction', max_length=20)
     stock_keeping_unit = models.ForeignKey("StockKeepingUnit", verbose_name=_('Stock keeping unit'))
-    quantity = models.DecimalField('Quantity', max_digits=10, decimal_places=3)
+    quantity = models.DecimalField('Quantity', max_digits=10, decimal_places=3, default = 0)
     location = models.CharField('Location', max_length=20)
     operation_date = models.DateField('Operation date', auto_now_add=False)
     customer = models.ForeignKey("Customer", null=True, verbose_name=_('Customer'))
@@ -116,4 +116,4 @@ class Orderfailure (models.Model):
         verbose_name_plural = _('Order failures')
         
     def __unicode__(self):
-        return u'%(operation)s' % self.operation
+        return u'%(operation)s' % {'operation':self.operation}
