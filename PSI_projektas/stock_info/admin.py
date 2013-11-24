@@ -2,9 +2,12 @@ from PSI_projektas.contrib.options import CustomModelAdmin
 from django.contrib import admin
 from PSI_projektas.stock_info.models import Customer, StockBalance,\
     StockKeepingUnit, LogInfo, Operation, Orderfailure
+from PSI_projektas.stock_info.views import Data_export
+from django.http import HttpResponse
+from django.utils.encoding import smart_str
+import datetime
 
-def exportCSV(request, queryset):
-    pass
+
     
 class CustomerAdmin(CustomModelAdmin):
     list_display = Customer.list_display
@@ -26,7 +29,17 @@ class OperationAdmin(CustomModelAdmin):
 
 class OrderFailureAdmin(CustomModelAdmin):
     list_display = Orderfailure.list_display
-
+    actions = ['exportCSV']
+    def exportCSV(self, request, queryset):
+        name_file = "export%s.csv" % datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+        mimetype = 'text/csv'
+        export_file = Data_export(queryset)
+        response = HttpResponse(content=export_file.getvalue(),
+                                        mimetype=mimetype)
+        response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(name_file)
+        #response['X-Sendfile'] = smart_str(export_file)
+        
+        return response
 
 
 
