@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.db.models.aggregates import Sum
+import datetime
 
 
 # Create your models here.
@@ -93,6 +95,7 @@ class Operation (models.Model):
     operation_date = models.DateField('Operation date', auto_now_add=False)
     customer = models.ForeignKey("Customer", null=True, verbose_name=_('Customer'))
     operation_id = models.IntegerField('Operation ID', null=True)
+    date = models.DateTimeField(_('Date'), auto_now_add=True)
     
     list_display = ('document', 'direction')
     
@@ -117,3 +120,23 @@ class Orderfailure (models.Model):
         
     def __unicode__(self):
         return u'%(operation)s' % self.operation
+
+    @classmethod
+    def calculate_service_level(cls, date_from, date_to, group):
+        if group:
+            operations = Operation.objects.filter(stock_keeping_unit__group=group,
+                                                  date__gte=date_from,
+                                                  date__lte=date_to)
+        else:
+            operations = Operation.objects.filter(date__gte=date_from,
+                                                  date__lte=date_to)
+        data = {}
+        start_date = date_from
+        while start_date <= date_to:
+            date_opers = operations.filter(date=start_date)
+            fails = cls.objects.filter(operation__in=date_opers)
+            failed_amount = fails.aggregate(Sum('quantity'))['quantity__sum'] or 0
+            operation_amount = date_opers.aggregate(Sum('amount'))['amount__sum'] or 0
+            data[start_date] = failed_amount / operation_amount if operation_amount > 0 else 0
+            start_date = start_date + datetime.timedelta(days=1)
+        return data
