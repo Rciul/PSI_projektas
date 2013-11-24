@@ -22,6 +22,14 @@ DATABASES = {
         'PASSWORD': 'root',  # Not used with sqlite3.
         'HOST': '',  # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',  # Set to empty string for default. Not used with sqlite3.
+    },
+    'oracle' : {
+                'ENGINE': 'django.db.backends.mysql',
+                'NAME' : 'tmp_psi',
+                'USER' : 'root',
+                'PASSWORD' : 'root',
+                'HOST' : '',
+                'PORT' : ''
     }
 }
  
@@ -130,7 +138,8 @@ INSTALLED_APPS = (
     'south',
     # Uncomment the next line to enable the admin:
     'contrib',
-    'django.contrib.admin'
+    'django.contrib.admin',
+    'oracle'
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

@@ -21,7 +21,7 @@ class StockBalance (models.Model):
     
 class StockKeepingUnit (models.Model):
     stock_keeping_unit_id = models.CharField('Stock keeping unit ID', max_length=20)
-    group = models.CharField('Group', max_length=32)
+    group = models.CharField('Group', max_length=32, blank=True, null=True)
     description = models.CharField('Description', max_length=255, null=True)
     units_per_parcel = models.IntegerField('Units per parcel', null=True)
     units_per_pallet = models.IntegerField('Units per pallette')
@@ -30,6 +30,8 @@ class StockKeepingUnit (models.Model):
     traditional_trade = models.BooleanField('Traditional trade', default=False)
     location = models.CharField('Location', max_length=20, null=True)
     net_weight = models.DecimalField('Net weight', max_digits=9, decimal_places=3, null=True)
+    measurement_unit = models.CharField(max_length=8, blank=True)
+    base_units = models.DecimalField(decimal_places=0, null=True, max_digits=4, blank=True)
     
 class LogInfo (models.Model):
     stock_keeping_unit = models.ForeignKey("StockKeepingUnit", null=True,
