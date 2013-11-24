@@ -77,3 +77,11 @@ def File_form(request):
             </script>"""
             return HttpResponse(close)
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    
+def Render_quality(request):
+    form = QualityForm()
+    data_for_templete = {'form' : form,
+                         'is_popup' : False}
+    rc = RequestContext(request, {})
+    rc.autoescape = False
+    return render_to_response('stock_info/quality_service.html', data_for_templete, rc)

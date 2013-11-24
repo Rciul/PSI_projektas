@@ -29,9 +29,6 @@ class OperationAdmin(CustomModelAdmin):
 class OrderFailureAdmin(CustomModelAdmin):
     list_display = Orderfailure.list_display
 
-
-
-
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(StockBalance, StockBalanceAdmin)
 admin.site.register(StockKeepingUnit, StockKeepingUnitAdmin)
