@@ -12,8 +12,13 @@
 {% block nav-global %}
 <nav id="navigation">
 	<ul>
-		<li>Prekių judėjimas</li>
-		<li>Aptarnavimo kokybė</li>
+		<li>
+			<a href="{% url 'admin:index' %}">{% trans "Home" %}</a>
+		</li>
+		<li>
+			<a href="#">{% trans "Product flow" %}</a></li>
+		<li>
+			<a href="#">{% trans "Quality of service" %}</a></li>
 		<li>
 			<a href="/admin/stock_info/orderfailure">{% trans 'Reasons of order failures' %}</a>
 		</li>
