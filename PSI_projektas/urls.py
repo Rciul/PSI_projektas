@@ -4,6 +4,7 @@ from PSI_projektas import stock_info
 from django.contrib.sites.models import Site
 import PSI_projektas
 from PSI_projektas.stock_info.views import handleAction
+from PSI_projektas.stock_info import urls
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -20,6 +21,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^admin/handleAction', handleAction)
+    url(r'^admin/handleAction', handleAction),
 #     url(r'^admin/', include('stock_info.urls')),
+    url(r'^admin/', include(urls)),
 )
