@@ -2,6 +2,10 @@ from PSI_projektas.contrib.options import CustomModelAdmin
 from django.contrib import admin
 from PSI_projektas.stock_info.models import Customer, StockBalance,\
     StockKeepingUnit, LogInfo, Operation, Orderfailure
+from django.http import HttpResponseRedirect
+
+def importCSV(request, queryset):
+    return HttpResponseRedirect('javascript:void(0);')
 
 def exportCSV(request, queryset):
     pass
