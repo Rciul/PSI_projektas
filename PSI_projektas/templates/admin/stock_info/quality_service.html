@@ -11,5 +11,31 @@
 
 {% block object-tools %}
 {% endblock %}
+<div id="content-main">
 
+    <form action="" method="post" enctype="multipart/form-data" id="gate_mode_form">
+        {% csrf_token %}
+        <div>
+            <fieldset class="module aligned">
+            	<table>
+                	{% for field in form %}
+                	<tr>
+                		<div class="form-row">
+                    		<div>
+                        	{{ field.errors }}
+                        	<div >
+                            	<td><label for="id_{{ field.name }}">{{ field.label }}:</label></td>
+                            	<td>{{ field }}</td>
+                        	</div>
+                    	</div>
+                    </tr>
+                	{% endfor %}
+                </table>
+            </fieldset>
+            <div class="submit-row">
+                <input type="submit" value="{% trans 'OK' %}"/>
+            </div>
+        </div>
+    </form>
+</div>
 {% endblock %}
