@@ -24,6 +24,8 @@ from PSI_projektas.stock_info.forms import FileForm, QualityForm
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
+import datetime
+import StringIO
 def Data_import(f):
     import csv
     
@@ -44,20 +46,23 @@ def Data_import(f):
         Orderfailure.objects.bulk_create(operation_list)
         print "Baige "
 
-def Data_export():
+def Data_export(queryset):
     import csv
-    with open("export.csv", 'rb') as csvfile:
-        data_writer = csv.writer(csvfile, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        data_writer.writerow(['Spam', 'Lovely Spam', 'Wonderful Spam'])
-        #for row in data_reader:
-        #import pdb
-        #pdb.set_trace()
-#         data_writer.writerow()
-#         operation_id = row[0].encode('utf-8')
-#         reason = row[1].encode('utf-8')
-#         opertation_ID = Operation.objects.get(operation_id=operation_id)
-#         Orderfailure.objects.create(operation = opertation_ID, reason = reason)
-#         print operation_id+' - '+reason
+    export_list = queryset.values_list('operation__operation_id', 'reason', 'amount')
+    
+    output = StringIO.StringIO()
+    for row in export_list:
+        print_str = ';'.join(['%s' % r for r in row])+"\n"
+        output.write(print_str)
+    output.seek(0)
+    
+#     with open(name_file, 'wb') as csvfile:
+#         data_writer = csv.writer(csvfile, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+#         for row in export_list:
+#             print ';'.join(['%s' % r for r in row])
+#             data_writer.writerow(row)
+    return output
+    
 
 def handleAction(request):
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
