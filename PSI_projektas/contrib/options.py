@@ -147,10 +147,8 @@ class CustomModelAdmin(ModelAdmin):
             action_form.fields['action'].choices = self.get_action_choices(request)
         else:
             action_form = None
-
         selection_note_all = ungettext('%(total_count)s selected',
             'All %(total_count)s selected', cl.result_count)
-
         context = {
             'module_name': force_text(opts.verbose_name_plural),
             'selection_note': _('0 of %(cnt)s selected') % {'cnt': len(cl.result_list)},

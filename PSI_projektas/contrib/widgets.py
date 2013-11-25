@@ -4,6 +4,7 @@ from django.forms.util import flatatt
 from django.utils.safestring import mark_safe
 from django.utils.encoding import force_text
 from itertools import chain
+
 class ListWidget(Widget): 
     allow_multiple_selected = False
 
@@ -16,6 +17,7 @@ class ListWidget(Widget):
             output.append(options)
         output.append('</ul>')
         return mark_safe('\n'.join(output))
+    
     def render_option(self, selected_choices, option_value, name, option_label):
         option_value = force_text(option_value)
         if option_value in selected_choices:
