@@ -10,9 +10,60 @@
 {% block breadcrumbs %}{% endblock %}
 
 {% block content %}
+<div id="assignment-info">
+	<h1>Darbo užduotis ir projekto informacija</h1>
+	<p>
+		Darbo tikslas: sukurti įrankį, kuris leistų išmatuoti aptarnavimo kokybę pagal nustatyto periodo prekių judejimą.
+	</p>
+	<p>
+		Turi būti numatytos šios galimybės:
+	</p>
+	<ul>
+		<li>Sukurti (redaguoti) užsakymo eilutės neįvykdymo priežasčių sąrašą;</li>
+		<li>Duomenų importo-eksporto galimybes iš/į excel failus;</li>
+		<li>Aptarnavimo kokybės skaičiavimas už periodus: savaitė, mėnuo;</li>
+		<li>Rezultatų saugojimas ir grafinis atvaizdavimas;</li>
+	</ul>
+	<p>Sprendimas turi būti parengtas Python/Django ir MySQL technologijų pagrindu.</p>
+	<p><a href="http://stud.if.ktu.lt/~taupet/PSI_svetaine/index.html">Komandos svetainė</a></p>
+	<h3>Projekto komanda:</h3>
+	<div class="team-member">
+			<p><strong class="info">Vardas:</strong> Tautvydas Petkus</p>
+			<p><strong class="info">Gimimo data:</strong> 1992-09-28</p>
+			<p><strong class="info">Miestas:</strong> Alytus</p>
+			<p><strong class="info">Kontaktiniai duomenys:</strong> tautvydas.petkus@stud.ktu.lt</p>
+			<p><strong class="info">Pareigos komandoje:</strong></p>
+			<p><strong class="info">Nuveikti darbai: </strong> Vartotojo, veiksmų sekos, GUI UML diagramos</p>
+		</div>
+		<div class="team-member">
+			<p><strong class="info">Vardas:</strong> Lukas Rubikas</p>
+			<p><strong class="info">Gimimo data:</strong> 1992-06-24</p>
+			<p><strong class="info">Miestas:</strong> Kaunas</p>
+			<p><strong class="info">Kontaktiniai duomenys:</strong> lukas.rubikas@stud.ktu.lt</p>
+			<p><strong class="info">Pareigos komandoje:</strong> Informacinės svetainės kūrimas ir priežiūra, HTML ir CSS</p>
+			<p><strong class="info">Nuveikti darbai:</strong> Sukurta informacinė sistema, HTML ir CSS projekto aspektai</p>
+			
+		</div>
+		<div class="team-member">
+			<p><strong class="info">Vardas:</strong> Rimantas Čiuladis</p>
+			<p><strong class="info">Gimimo data:</strong> 1992-08-21</p>
+			<p><strong class="info">Miestas:</strong> Viekšniai</p>
+			<p><strong class="info">Kontaktiniai duomenys:</strong> rimantas.ciuladis@stud.ktu.lt</p>
+			<p><strong class="info">Pareigos komandoje:</strong></p>
+			<p><strong class="info">Nuveikti darbai:</strong> Specifikacija</p>
+		</div>
+		<div class="team-member">
+			<p><strong class="info">Vardas:</strong> Karolis Ryselis</p>
+			<p><strong class="info">Gimimo data:</strong> 1992-10-06</p>
+			<p><strong class="info">Miestas:</strong> Marijampolė</p>
+			<p><strong class="info">Kontaktiniai duomenys:</strong> karolis.ryselis@stud.ktu.lt</p>
+			<p><strong class="info">Pareigos komandoje:</strong></p>
+			<p><strong class="info">Nuveikti darbai:</strong> UML klasių diagramos, duomenų bazės schema</p>
+		</div>
+</div>
 <div id="content-main">
 
-{% if app_list %}
+<!-- {% if app_list %}
     {% for app in app_list %}
         <div class="module">
         <table>
@@ -80,5 +131,5 @@
             </ul>
             {% endif %}
     </div>
-</div>
+</div> -->
 {% endblock %}

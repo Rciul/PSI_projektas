@@ -5,6 +5,7 @@ import time
 from django.template.context import RequestContext
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from PSI_projektas.stock_info.models import Orderfailure
 
 def draw_chart(request):
     
