@@ -1,19 +1,14 @@
 {% extends "admin/base_site.html" %}
-{% load adminmedia i18n %}
+{% load admin_static i18n %}
 
 {% block extrastyle %}{{ block.super }}
-<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/databrowse.css" />
-<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css" />
-<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/changelists.css" />
-<link href="/static/css/autocomplete.css" type="text/css" media="all" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="{% static "css/databrowse.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "css/forms.css" %}"/>
+<link rel="stylesheet" type="text/css" href="{% static "css/changelists.css" %}" />
 
 {% endblock %}
 
 {% block extrahead %}{{ block.super }}
-<script src="{% admin_media_prefix %}js/admin/RelatedObjectLookups.js" type="text/javascript"></script>
-<script type="text/javascript" src="/admin/jsi18n/venta_django/"></script>
-<script type="text/javascript" src="/static/js/autocomplete.min.js"></script>
-<script type="text/javascript" src="/static/js/autocomplete.js"></script>
 {% endblock %}
 
 {% block content %}

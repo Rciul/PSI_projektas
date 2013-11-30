@@ -2,23 +2,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
 # Create your views here.
-# import csv
-# import MySQLdb
-# 
-# mydb = MySQLdb.connect(host='localhost',
-#     user='root',
-#     passwd='root',
-#     db='psi')
-# cursor = mydb.cursor()
-# 
-# csv_data = csv.reader(file('data.csv'))
-# for row in csv_data:
-#     
-#     
-# #close the connection to the database.
-# mydb.commit()
-# cursor.close()
-# print "Done"
+
 from PSI_projektas.stock_info.models import Operation, Orderfailure
 from PSI_projektas.stock_info.forms import FileForm, QualityForm
 from django.shortcuts import render_to_response
@@ -26,25 +10,35 @@ from django.template.context import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 import datetime
 import StringIO
-def Data_import(f):
-    import csv
-    
-    with open(f, 'rb') as csvfile:
-        data_reader = csv.reader(csvfile, delimiter=';', quotechar='|')
-        operation_list = []
-        for row in data_reader:
-            #import pdb
-            #pdb.set_trace()
+import csv
+from django.utils.translation import ugettext_lazy
+from django.contrib import messages
+
+def Data_import(csvfile):
+    data_reader = csv.reader(csvfile, delimiter=';', quotechar='|')
+    operation_list = []
+    not_found_operation_count = 0
+    failed_rows = 0
+    success = 0
+    for row in data_reader:
+        try:
             operation_id = row[0].encode('utf-8')
             reason = row[1].encode('utf-8')
             amount = row[2].encode('utf-8')
-            operation_ID = Operation.objects.get(operation_id=operation_id)
-#             import pdb
-#             pdb.set_trace()
+            try:
+                operation_ID = Operation.objects.get(operation_id=operation_id)
+            except:
+                not_found_operation_count += 1
+                continue
             tmp = Orderfailure(operation = operation_ID, reason = reason, amount = amount)
             operation_list.append(tmp)
-        Orderfailure.objects.bulk_create(operation_list)
-        print "Baige "
+            success += 1
+        except:
+            failed_rows += 1
+    Orderfailure.objects.bulk_create(operation_list)
+    return {'not_found' : not_found_operation_count,
+            'failed' : failed_rows,
+            'success' : success}
 
 def Data_export(queryset):
     import csv
@@ -66,24 +60,30 @@ def Data_export(queryset):
 
 def handleAction(request):
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
 def File_form(request):
     if request.method == 'GET':
         form = FileForm()
-        data_for_templete = {'form' : form,
-                             'is_popup' : True}
+        data_for_templete = {'form' : form}
         rc = RequestContext(request, {})
         rc.autoescape = False
-        return render_to_response('stoc_info/fileimport.html', data_for_templete, rc)
+        return render_to_response('stock_info/fileimport.html', data_for_templete, rc)
     else:
-        form = FileForm(request.POST)
+        form = FileForm(request.POST, request.FILES)
         if form.is_valid():
-            file_name = form.cleaned_data['file_name']
-            Data_import(file_name)
-            close = """<script type="text/javascript">
-            window.close();
-            </script>"""
-            return HttpResponse(close)
-        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+            
+            data = form.cleaned_data['file_name']
+            results = Data_import(data)
+            err_msg = []
+            if results['not_found']:
+                err_msg.append(unicode(ugettext_lazy('Not found operations: %d' % results['not_found'])))
+            if results['failed']:
+                err_msg.append(unicode(ugettext_lazy('Failed rows: %d' % results['failed'])))
+            if len(err_msg) > 0:
+                messages.error(request, '; '.join(err_msg))
+            else:
+                messages.info(request, unicode(ugettext_lazy('Success: %s rows' % results['success'])))
+    return HttpResponseRedirect('/admin/stock_info/orderfailure')
     
 def Render_quality(request):
     if request.method == 'POST':
@@ -93,4 +93,4 @@ def Render_quality(request):
     data_for_templete = {'form' : form, 'is_popup' : False}
     rc = RequestContext(request, {})
     rc.autoescape = False
-    return render_to_response('admin/stock_info/quality_service.html', data_for_templete, rc)
+    return render_to_response('stock_info/quality_service.html', data_for_templete, rc)

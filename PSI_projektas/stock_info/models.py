@@ -7,13 +7,13 @@ import datetime
 # Create your models here.
 
 class Customer (models.Model):
-    customer_id = models.CharField('Customer ID', max_length=32, null=True)
-    name = models.CharField('Name', max_length=96, null=True)
-    city = models.CharField('City', max_length=64, null=True)
-    region = models.CharField('Region', max_length=64, null=True) 
-    type = models.CharField('Type', max_length=64, null=True)
-    shipping_limit = models.IntegerField('Shipping limit', null=True)
-    address = models.CharField('Address', max_length=128, null=True) 
+    customer_id = models.CharField(_('Customer ID'), max_length=32, null=True)
+    name = models.CharField(_('Name'), max_length=96, null=True)
+    city = models.CharField(_('City'), max_length=64, null=True)
+    region = models.CharField(_('Region'), max_length=64, null=True) 
+    type = models.CharField(_('Type'), max_length=64, null=True)
+    shipping_limit = models.IntegerField(_('Shipping limit'), null=True)
+    address = models.CharField(_('Address'), max_length=128, null=True)
     
     list_display = ('customer_id', 'name', 'city', 'region', 'type',
                     'shipping_limit', 'address')
@@ -41,18 +41,18 @@ class StockBalance (models.Model):
         return u'%(description)s' % {'description' : self.description}
     
 class StockKeepingUnit (models.Model):
-    stock_keeping_unit_id = models.CharField('Stock keeping unit ID', max_length=20)
-    group = models.CharField('Group', max_length=32, blank=True, null=True)
-    description = models.CharField('Description', max_length=255, null=True)
-    units_per_parcel = models.IntegerField('Units per parcel', null=True)
-    units_per_pallet = models.IntegerField('Units per pallette')
-    manufacturer = models.CharField('Manufacturer', max_length=64, null=True)
-    country_of_origin = models.CharField('Country of origin', max_length=64, null=True)
-    traditional_trade = models.BooleanField('Traditional trade', default=False)
-    location = models.CharField('Location', max_length=20, null=True)
-    net_weight = models.DecimalField('Net weight', max_digits=9, decimal_places=3, null=True)
-    measurement_unit = models.CharField(max_length=8, blank=True)
-    base_units = models.DecimalField(decimal_places=0, null=True, max_digits=4, blank=True)
+    stock_keeping_unit_id = models.CharField(_('Stock keeping unit ID'), max_length=20)
+    group = models.CharField(_('Group'), max_length=32, blank=True, null=True)
+    description = models.CharField(_('Description'), max_length=255, null=True)
+    units_per_parcel = models.IntegerField(_('Units per parcel'), null=True)
+    units_per_pallet = models.IntegerField(_('Units per pallette'))
+    manufacturer = models.CharField(_('Manufacturer'), max_length=64, null=True)
+    country_of_origin = models.CharField(_('Country of origin'), max_length=64, null=True)
+    traditional_trade = models.BooleanField(_('Traditional trade'), default=False)
+    location = models.CharField(_('Location'), max_length=20, null=True)
+    net_weight = models.DecimalField(_('Net weight'), max_digits=9, decimal_places=3, null=True)
+    measurement_unit = models.CharField(_('Measurement unit'), max_length=8, blank=True)
+    base_units = models.DecimalField(_('Base units'), decimal_places=0, null=True, max_digits=4, blank=True)
     
     list_display = ('stock_keeping_unit_id', 'group', 'description', 'manufacturer', 'location')
     
@@ -67,14 +67,14 @@ class StockKeepingUnit (models.Model):
 class LogInfo (models.Model):
     stock_keeping_unit = models.ForeignKey("StockKeepingUnit", null=True,
                                            verbose_name=_('Stock keeping unit'))
-    description = models.CharField('Description', max_length=255, null=True)
-    net_weight = models.DecimalField('Net weight', max_digits=9, decimal_places=3, null=True)
-    brutto_weight = models.DecimalField('Brutto weight', max_digits=9, decimal_places=3, null=True)
-    units_per_parcel = models.IntegerField('Units per parcel', null=True)
-    units_per_pallet = models.IntegerField('Units per pallette', null=True)
-    shelf_life_period = models.IntegerField('Shelf life period', null=True)
-    measurement_unit = models.CharField('Measurement unit', max_length=8, null=True)
-    location = models.CharField('Location', max_length=20, null=True)
+    description = models.CharField(_('Description'), max_length=255, null=True)
+    net_weight = models.DecimalField(_('Net weight'), max_digits=9, decimal_places=3, null=True)
+    brutto_weight = models.DecimalField(_('Brutto weight'), max_digits=9, decimal_places=3, null=True)
+    units_per_parcel = models.IntegerField(_('Units per parcel'), null=True)
+    units_per_pallet = models.IntegerField(_('Units per pallette'), null=True)
+    shelf_life_period = models.IntegerField(_('Shelf life period'), null=True)
+    measurement_unit = models.CharField(_('Measurement unit'), max_length=8, null=True)
+    location = models.CharField(_('Location'), max_length=20, null=True)
     
     list_display = ('stock_keeping_unit', 'description', 'location')
     
@@ -87,14 +87,14 @@ class LogInfo (models.Model):
                                                 'description' : self.description}
     
 class Operation (models.Model):
-    document = models.CharField('Document', max_length=20)
-    direction = models.CharField('Direction', max_length=20)
+    document = models.CharField(_('Document'), max_length=20)
+    direction = models.CharField(_('Direction'), max_length=20)
     stock_keeping_unit = models.ForeignKey("StockKeepingUnit", verbose_name=_('Stock keeping unit'))
-    quantity = models.DecimalField('Quantity', max_digits=10, decimal_places=3, default = 0)
-    location = models.CharField('Location', max_length=20)
-    operation_date = models.DateField('Operation date', auto_now_add=False)
+    quantity = models.DecimalField(_('Quantity'), max_digits=10, decimal_places=3, default = 0)
+    location = models.CharField(_('Location'), max_length=20)
+    operation_date = models.DateField(_('Operation date'), auto_now_add=False)
     customer = models.ForeignKey("Customer", null=True, verbose_name=_('Customer'))
-    operation_id = models.IntegerField('Operation ID', null=True)
+    operation_id = models.IntegerField(_('Operation ID'), null=True)
     date = models.DateTimeField(_('Date'), auto_now_add=True)
     
     list_display = ('document', 'direction')
@@ -109,8 +109,8 @@ class Operation (models.Model):
 class Orderfailure (models.Model):
     date = models.DateTimeField(_('Date'), auto_now_add=True)
     operation = models.ForeignKey("Operation", verbose_name=_('Operation'))
-    reason = models.CharField('Reason', max_length=255)
-    amount = models.DecimalField('Amount', max_digits=10, decimal_places=3)
+    reason = models.CharField(_('Reason'), max_length=255)
+    amount = models.DecimalField(_('Amount'), max_digits=10, decimal_places=3)
     
     list_display = ('operation', 'reason')
 

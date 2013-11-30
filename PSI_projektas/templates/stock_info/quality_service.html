@@ -1,10 +1,13 @@
 {% extends "admin/base_site.html" %}
-{% load adminmedia i18n %}
+{% load admin_static i18n %}
+{% load nvd3_tags %}
 
 {% block extrastyle %}{{ block.super }}
 {% endblock %}
 
 {% block extrahead %}{{ block.super }}
+{% include_nvd3jscss %}
+{% load_chart charttype chartdata "linechart_container" is_date format format_y %}
 {% endblock %}
 
 {% block content %}

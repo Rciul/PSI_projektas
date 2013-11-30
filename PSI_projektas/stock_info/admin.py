@@ -10,6 +10,8 @@ import datetime
 
 
 from django.http import HttpResponseRedirect
+from django.utils.translation import ugettext_lazy
+from PSI_projektas.stock_info.forms import OrderFailureForm
 
 def importCSV(request, queryset):
     return HttpResponseRedirect('javascript:void(0);')
@@ -38,18 +40,22 @@ class OperationAdmin(CustomModelAdmin):
 
 class OrderFailureAdmin(CustomModelAdmin):
     list_display = Orderfailure.list_display
+    form = OrderFailureForm
 
-    actions = ['exportCSV']
+    actions = ['exportCSV', 'importCSV']
     def exportCSV(self, request, queryset):
         name_file = "export%s.csv" % datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
         mimetype = 'text/csv'
         export_file = Data_export(queryset)
         response = HttpResponse(content=export_file.getvalue(),
                                         mimetype=mimetype)
-        response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(name_file)
-        #response['X-Sendfile'] = smart_str(export_file)
-        
+        response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(name_file)        
         return response
+    exportCSV.short_description = ugettext_lazy('Export to .csv file')
+    
+    def importCSV(self, request, queryset):
+        return HttpResponseRedirect('/admin/stock_info/file_form')
+    importCSV.short_decription = ugettext_lazy('Import from .csv file')
 
 
 admin.site.register(Customer, CustomerAdmin)
