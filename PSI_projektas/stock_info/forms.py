@@ -1,9 +1,11 @@
 from django.forms.forms import Form
-from django.forms.fields import FileField, DateField, CharField, IntegerField
+from django.forms.fields import FileField, DateField, CharField, IntegerField,\
+    ChoiceField, MultipleChoiceField
 from django.utils.translation import ugettext_lazy
-from django.forms.widgets import DateInput
+from django.forms.widgets import DateInput, CheckboxSelectMultiple
 from django.forms.models import ModelForm
-from PSI_projektas.stock_info.models import Orderfailure, Operation
+from PSI_projektas.stock_info.models import Orderfailure, Operation,\
+    StockKeepingUnit
 from django.core.exceptions import ValidationError
 
 class FileForm(Form):
@@ -12,7 +14,13 @@ class FileForm(Form):
 class QualityForm(Form):
     date_from = DateField(label=ugettext_lazy('Date from'))
     date_to = DateField(label=ugettext_lazy('Date to'))
-    group = CharField(label=ugettext_lazy('Group'))
+    group = MultipleChoiceField(label=ugettext_lazy('Group'),
+                                required=False,
+                                widget=CheckboxSelectMultiple())
+    
+    def __init__(self, *args, **kwargs):
+        super(QualityForm, self).__init__(*args, **kwargs)
+        self.fields['group'].choices = StockKeepingUnit.objects.all().values_list('group','group').distinct()
 
 class OrderFailureForm(ModelForm):
     operation = IntegerField(label=ugettext_lazy('Operation ID'))

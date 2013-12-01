@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.aggregates import Sum
 import datetime
+import time
 
 
 # Create your models here.
@@ -124,21 +125,36 @@ class Orderfailure (models.Model):
 
     @classmethod
     def calculate_service_level(cls, date_from, date_to, group):
+        time1 = time.time()
         if group:
-            operations = Operation.objects.filter(stock_keeping_unit__group=group,
-                                                  date__gte=date_from,
-                                                  date__lte=date_to)
+            operations = list(Operation.objects.filter(stock_keeping_unit__group=group,
+                                                       date__gte=date_from,
+                                                       date__lte=date_to))
         else:
-            operations = Operation.objects.filter(date__gte=date_from,
-                                                  date__lte=date_to)
-        data = {}
+            operations = list(Operation.objects.filter(date__gte=date_from,
+                                                       date__lte=date_to))
+        time2 = time.time()
+        print 'loaded', time2-time1
+        dates = []
+        levels = []
         start_date = date_from
         while start_date <= date_to:
-            date_opers = operations.filter(date=start_date)
+            date_opers = [operation for operation in operations if operation.date==start_date]
+            
             fails = cls.objects.filter(operation__in=date_opers)
-            failed_amount = fails.aggregate(Sum('quantity'))['quantity__sum'] or 0
-            operation_amount = date_opers.aggregate(Sum('amount'))['amount__sum'] or 0
-            data[start_date] = failed_amount / operation_amount if operation_amount > 0 else 0
+            
+            
+            failed_amount = fails.aggregate(Sum('amount'))['amount__sum'] or 0
+            time3 = time.time()
+            operation_amount = sum(operation.quantity for operation in date_opers) or 0
+            time4 = time.time()
+            dates.append(time.mktime(start_date.timetuple())*1000)
+            if operation_amount > 0:
+                levels.append(100 - 100 * (failed_amount / operation_amount if failed_amount > 0 else 0))
+            else:
+                levels.append(None)
             start_date = start_date + datetime.timedelta(days=1)
-        return data
+            
+            print 'calc', time4-time3
+        return dates, levels
 

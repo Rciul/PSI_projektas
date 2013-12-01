@@ -1,13 +1,15 @@
 {% extends "admin/base_site.html" %}
-{% load admin_static i18n %}
 {% load nvd3_tags %}
+{% load admin_static i18n %}
+
 
 {% block extrastyle %}{{ block.super }}
+<link media="all" href="{% static "nvd3/src/nv.d3.css" %}"/>
 {% endblock %}
 
 {% block extrahead %}{{ block.super }}
-{% include_nvd3jscss %}
-{% load_chart charttype chartdata "linechart_container" is_date format format_y %}
+{% include_chart_jscss %}
+{% load_chart charttype chartdata "chart_container" extra %}
 {% endblock %}
 
 {% block content %}
@@ -15,7 +17,9 @@
 {% block object-tools %}
 {% endblock %}
 <div id="content-main">
-
+	<div id="chart_container">
+		{% include_container "chart_container" 400 800 %}
+	</div>
     <form action="" method="post" enctype="multipart/form-data" id="gate_mode_form">
         {% csrf_token %}
         <div>

@@ -30,7 +30,7 @@ def Data_import(csvfile):
             except:
                 not_found_operation_count += 1
                 continue
-            tmp = Orderfailure(operation = operation_ID, reason = reason, amount = amount)
+            tmp = Orderfailure(operation=operation_ID, reason=reason, amount=amount)
             operation_list.append(tmp)
             success += 1
         except:
@@ -46,7 +46,7 @@ def Data_export(queryset):
     
     output = StringIO.StringIO()
     for row in export_list:
-        print_str = ';'.join(['%s' % r for r in row])+"\n"
+        print_str = ';'.join(['%s' % r for r in row]) + "\n"
         output.write(print_str)
     output.seek(0)
     
@@ -84,13 +84,52 @@ def File_form(request):
             else:
                 messages.info(request, unicode(ugettext_lazy('Success: %s rows' % results['success'])))
     return HttpResponseRedirect('/admin/stock_info/orderfailure')
+
+def render_quality(request):
+    if request.method == 'POST':    
+        date_from = request.POST.get('date_from')
+        date_from = datetime.datetime.strptime(date_from, '%Y-%m-%d').date()
+        date_to = request.POST.get('date_to')
+        date_to = datetime.datetime.strptime(date_to, '%Y-%m-%d').date()
+        group = request.POST.getlist('group')
+        rc = RequestContext(request, {})
+        rc.autoescape = False
+        url = '/admin/stock_info/quality_form?group=%(group)s&date_from=%(date_from)s&date_to=%(date_to)s'
+        url = url % {'date_from' : date_from,
+                     'date_to' : date_to,
+                     'group' : ', '.join([g for g in group])}
+        return HttpResponseRedirect(url)
     
-def Render_quality(request):
-    if request.method == 'POST':
-        #TODO
-        pass
-    form = QualityForm()
-    data_for_templete = {'form' : form, 'is_popup' : False}
+    date_from = request.GET.get('date_from')
+    date_from = datetime.datetime.strptime(date_from, '%Y-%m-%d').date()
+    date_to = request.GET.get('date_to')
+    date_to = datetime.datetime.strptime(date_to, '%Y-%m-%d').date()
+    group = request.GET.get('group').split(', ')
+    form = QualityForm(initial=request.GET.copy())
+    form.initial['group'] = group
+    ydata = []
+    counter = 1
+    for g in group:
+        x_data, y_data = Orderfailure.calculate_service_level(date_from, date_to, g)
+        ydata.append(['y%s' % counter, y_data, g, 'name%s' % counter])
+        counter += 1
+    charttype = 'lineChart'
+    chart_data = {'x' : x_data}
+    for d in ydata:
+        chart_data[d[0]] = d[1]
+        chart_data[d[3]] = d[2]
+    data = {'form' : form,
+            'charttype' : charttype,
+            'chartdata' : chart_data,
+            'extra' : {'x_is_date' : True}}
     rc = RequestContext(request, {})
     rc.autoescape = False
-    return render_to_response('stock_info/quality_service.html', data_for_templete, rc)
+    return render_to_response('stock_info/quality_service.html', data, rc)
+    
+def quality_redirect(request):
+    today = datetime.date.today()
+    last_week = today - datetime.timedelta(days=7)
+    url = '/admin/stock_info/quality_form?group=&date_from=%(date_from)s&date_to=%(date_to)s'
+    url = url % {'date_from' : last_week,
+                 'date_to' : today}
+    return HttpResponseRedirect(url)
