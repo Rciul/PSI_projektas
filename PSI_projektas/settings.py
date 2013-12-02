@@ -45,12 +45,16 @@ ALLOWED_HOSTS = []
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
 TIME_ZONE = 'Europe/Vilnius'
- 
+LANGUAGES = [
+    ('en','English'),
+    ('lt','Lithuanian'),
+]
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'lt'
  
 SITE_ID = 1
+LOCALE_PATHS = (PROJECT_PATH + "/locale",)
  
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -116,6 +120,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    
 )
  
 ROOT_URLCONF = 'PSI_projektas.urls'

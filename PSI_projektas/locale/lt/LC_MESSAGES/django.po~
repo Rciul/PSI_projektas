@@ -184,7 +184,6 @@ msgid "Traditional trade"
 msgstr "Įprasta prekyba"
 
 #: stock_info/models.py:52 stock_info/models.py:77 stock_info/models.py:94
-#, fuzzy
 msgid "Location"
 msgstr "Vieta"
 
@@ -221,7 +220,6 @@ msgid "Document"
 msgstr "Dokumentas"
 
 #: stock_info/models.py:91
-#, fuzzy
 msgid "Direction"
 msgstr "Kryptis"
 
@@ -230,7 +228,6 @@ msgid "Quantity"
 msgstr "Kiekis"
 
 #: stock_info/models.py:95
-#, fuzzy
 msgid "Operation date"
 msgstr "Operacijos laikas"
 
