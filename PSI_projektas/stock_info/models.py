@@ -127,26 +127,26 @@ class Orderfailure (models.Model):
     def calculate_service_level(cls, date_from, date_to, group):
         time1 = time.time()
         if group:
-            operations = list(Operation.objects.filter(stock_keeping_unit__group=group,
+            operations = Operation.objects.filter(stock_keeping_unit__group=group,
                                                        date__gte=date_from,
-                                                       date__lte=date_to))
+                                                       date__lte=date_to)
         else:
-            operations = list(Operation.objects.filter(date__gte=date_from,
-                                                       date__lte=date_to))
+            operations = Operation.objects.filter(date__gte=date_from,
+                                                       date__lte=date_to)
         time2 = time.time()
         print 'loaded', time2-time1
         dates = []
         levels = []
         start_date = date_from
         while start_date <= date_to:
-            date_opers = [operation for operation in operations if operation.date==start_date]
+            date_opers = operations.filter(date=start_date)
             
             fails = cls.objects.filter(operation__in=date_opers)
             
             
             failed_amount = fails.aggregate(Sum('amount'))['amount__sum'] or 0
             time3 = time.time()
-            operation_amount = sum(operation.quantity for operation in date_opers) or 0
+            operation_amount = date_opers.aggregate(Sum('quantity'))['quantity__sum'] or 0
             time4 = time.time()
             dates.append(time.mktime(start_date.timetuple())*1000)
             if operation_amount > 0:
