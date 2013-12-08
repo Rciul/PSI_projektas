@@ -12,6 +12,11 @@ class FileForm(Form):
     file_name = FileField(label=ugettext_lazy('File name'))
 
 class QualityForm(Form):
+    SKU_AMOUNT = '1'
+    ORDER_AMOUNT = '2'
+    TYPE_CHOICES = ((SKU_AMOUNT, ugettext_lazy('Anount percentage')),
+                    (ORDER_AMOUNT, ugettext_lazy('Order percentage')))
+    type = ChoiceField(label=ugettext_lazy('Chart type'), choices=TYPE_CHOICES)
     date_from = DateField(label=ugettext_lazy('Date from'))
     date_to = DateField(label=ugettext_lazy('Date to'))
     group = MultipleChoiceField(label=ugettext_lazy('Group'),

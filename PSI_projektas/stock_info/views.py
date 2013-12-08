@@ -92,12 +92,14 @@ def render_quality(request):
         date_to = request.POST.get('date_to')
         date_to = datetime.datetime.strptime(date_to, '%Y-%m-%d').date()
         group = request.POST.getlist('group')
+        chart_type = request.POST.get('type')
         rc = RequestContext(request, {})
         rc.autoescape = False
-        url = '/admin/stock_info/quality_form?group=%(group)s&date_from=%(date_from)s&date_to=%(date_to)s'
+        url = '/admin/stock_info/quality_form?group=%(group)s&date_from=%(date_from)s&date_to=%(date_to)s&type=%(type)s'
         url = url % {'date_from' : date_from,
                      'date_to' : date_to,
-                     'group' : ', '.join([g for g in group])}
+                     'group' : ', '.join([g for g in group]),
+                     'type' : chart_type}
         return HttpResponseRedirect(url)
     
     date_from = request.GET.get('date_from')
@@ -105,12 +107,16 @@ def render_quality(request):
     date_to = request.GET.get('date_to')
     date_to = datetime.datetime.strptime(date_to, '%Y-%m-%d').date()
     group = request.GET.get('group').split(', ')
+    chart_type = request.GET.get('type')
     form = QualityForm(initial=request.GET.copy())
     form.initial['group'] = group
     ydata = []
     counter = 1
     for g in group:
-        x_data, y_data = Orderfailure.calculate_service_level(date_from, date_to, g)
+        if chart_type == QualityForm.SKU_AMOUNT:
+            x_data, y_data = Orderfailure.calculate_service_level(date_from, date_to, g)
+        elif chart_type == QualityForm.ORDER_AMOUNT:
+            x_data, y_data = Orderfailure.calculate_service_level_by_orders(date_from, date_to, g)
         ydata.append(['y%s' % counter, y_data, g, 'name%s' % counter])
         counter += 1
     charttype = 'lineChart'
@@ -129,7 +135,8 @@ def render_quality(request):
 def quality_redirect(request):
     today = datetime.date.today()
     last_week = today - datetime.timedelta(days=7)
-    url = '/admin/stock_info/quality_form?group=&date_from=%(date_from)s&date_to=%(date_to)s'
+    url = '/admin/stock_info/quality_form?group=&date_from=%(date_from)s&date_to=%(date_to)s&type=%(type)s'
     url = url % {'date_from' : last_week,
-                 'date_to' : today}
+                 'date_to' : today,
+                 'type' : QualityForm.ORDER_AMOUNT}
     return HttpResponseRedirect(url)

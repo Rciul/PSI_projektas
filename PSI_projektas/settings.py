@@ -23,14 +23,14 @@ DATABASES = {
         'HOST': '',  # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',  # Set to empty string for default. Not used with sqlite3.
     },
-    'oracle' : {
-                'ENGINE': 'django.db.backends.mysql',
-                'NAME' : 'tmp_psi',
-                'USER' : 'root',
-                'PASSWORD' : 'root',
-                'HOST' : '',
-                'PORT' : ''
-    }
+#     'oracle' : {
+#                 'ENGINE': 'django.db.backends.mysql',
+#                 'NAME' : 'tmp_psi',
+#                 'USER' : 'root',
+#                 'PASSWORD' : 'root',
+#                 'HOST' : '',
+#                 'PORT' : ''
+#     }
 }
  
 # Hosts/domain names that are valid for this site; required if DEBUG is False

@@ -2,7 +2,9 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.aggregates import Sum
 import datetime
+from datetime import timedelta
 import time
+from decimal import Decimal
 
 
 # Create your models here.
@@ -97,7 +99,6 @@ class Operation (models.Model):
     customer = models.ForeignKey("Customer", null=True, verbose_name=_('Customer'))
     operation_id = models.IntegerField(_('Operation ID'), null=True)
     date = models.DateTimeField(_('Date'), auto_now_add=True)
-    
     list_display = ('document', 'direction')
     
     class Meta:
@@ -126,20 +127,30 @@ class Orderfailure (models.Model):
     @classmethod
     def calculate_service_level(cls, date_from, date_to, group):
         time1 = time.time()
-        if group:
-            operations = Operation.objects.filter(stock_keeping_unit__group=group,
-                                                       date__gte=date_from,
-                                                       date__lte=date_to)
-        else:
-            operations = Operation.objects.filter(date__gte=date_from,
-                                                       date__lte=date_to)
+        date_to = date_to + timedelta(days=1)
+        operations = Operation.objects.filter(stock_keeping_unit__group=group,
+                                              date__gte=date_from,
+                                              date__lte=date_to)
         time2 = time.time()
         print 'loaded', time2-time1
         dates = []
         levels = []
         start_date = date_from
-        while start_date <= date_to:
-            date_opers = operations.filter(date=start_date)
+        while start_date < date_to:
+            start = datetime.datetime(year=start_date.year,
+                                      month=start_date.month,
+                                      day=start_date.day,
+                                      hour=0,
+                                      minute=0,
+                                      second=0)
+            end = datetime.datetime(year=start_date.year,
+                                    month=start_date.month,
+                                    day=start_date.day,
+                                    hour=23,
+                                    minute=59,
+                                    second=59)
+            date_opers = operations.filter(date__gte=start,
+                                           date__lte=end)
             
             fails = cls.objects.filter(operation__in=date_opers)
             
@@ -156,5 +167,50 @@ class Orderfailure (models.Model):
             start_date = start_date + datetime.timedelta(days=1)
             
             print 'calc', time4-time3
+        print dates, levels
         return dates, levels
 
+    @classmethod
+    def calculate_service_level_by_orders(cls, date_from, date_to, group):
+        time1 = time.time()
+        date_to = date_to + timedelta(days=1)
+        operations = Operation.objects.filter(stock_keeping_unit__group=group,
+                                              date__gte=date_from,
+                                              date__lte=date_to)
+        time2 = time.time()
+        print 'loaded', time2-time1
+        dates = []
+        levels = []
+        start_date = date_from
+        while start_date < date_to:
+            start = datetime.datetime(year=start_date.year,
+                                      month=start_date.month,
+                                      day=start_date.day,
+                                      hour=0,
+                                      minute=0,
+                                      second=0)
+            end = datetime.datetime(year=start_date.year,
+                                    month=start_date.month,
+                                    day=start_date.day,
+                                    hour=23,
+                                    minute=59,
+                                    second=59)
+            date_opers = operations.filter(date__gte=start,
+                                           date__lte=end)
+            
+            fails = cls.objects.filter(operation__in=date_opers)
+            
+            
+            failed_amount = fails.count()
+            time3 = time.time()
+            operation_amount = date_opers.count()
+            time4 = time.time()
+            dates.append(time.mktime(start_date.timetuple())*1000)
+            if operation_amount > 0:
+                levels.append(100 - 100 * (Decimal(float(failed_amount) / float(operation_amount)) if failed_amount > 0 else 0))
+            else:
+                levels.append(None)
+            start_date = start_date + datetime.timedelta(days=1)
+            
+            print 'calc', time4-time3
+        return dates, levels

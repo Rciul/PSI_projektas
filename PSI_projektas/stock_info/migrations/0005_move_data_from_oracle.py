@@ -15,6 +15,8 @@ class Migration(DataMigration):
         # Use orm.ModelName to refer to models in this application,
         # and orm['appname.ModelName'] for models in other applications.
         
+        return
+        
         def create_sku(skuid):
             sku_count = SKU.objects.using('oracle').count()
             index = random.randint(0, sku_count-1)
