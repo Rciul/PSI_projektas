@@ -86,11 +86,15 @@ def File_form(request):
     return HttpResponseRedirect('/admin/stock_info/orderfailure')
 
 def render_quality(request):
-    if request.method == 'POST':    
-        date_from = request.POST.get('date_from')
-        date_from = datetime.datetime.strptime(date_from, '%Y-%m-%d').date()
-        date_to = request.POST.get('date_to')
-        date_to = datetime.datetime.strptime(date_to, '%Y-%m-%d').date()
+    if request.method == 'POST':
+        try:    
+            date_from = request.POST.get('date_from')
+            date_from = datetime.datetime.strptime(date_from, '%Y-%m-%d').date()
+            date_to = request.POST.get('date_to')
+            date_to = datetime.datetime.strptime(date_to, '%Y-%m-%d').date()
+        except:
+            messages.error(request, ugettext_lazy('Enter a correct date'))
+            return HttpResponseRedirect(request.META['HTTP_REFERER'])
         group = request.POST.getlist('group')
         chart_type = request.POST.get('type')
         rc = RequestContext(request, {})
@@ -103,9 +107,13 @@ def render_quality(request):
         return HttpResponseRedirect(url)
     
     date_from = request.GET.get('date_from')
-    date_from = datetime.datetime.strptime(date_from, '%Y-%m-%d').date()
-    date_to = request.GET.get('date_to')
-    date_to = datetime.datetime.strptime(date_to, '%Y-%m-%d').date()
+    try:
+        date_from = datetime.datetime.strptime(date_from, '%Y-%m-%d').date()
+        date_to = request.GET.get('date_to')
+        date_to = datetime.datetime.strptime(date_to, '%Y-%m-%d').date()
+    except:
+        messages.error(request, ugettext_lazy('Enter a correct date'))
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
     group = request.GET.get('group').split(', ')
     chart_type = request.GET.get('type')
     form = QualityForm(initial=request.GET.copy())

@@ -47,7 +47,6 @@ class ServiceLevelCalculationTest(TestCase):
                                             stock_keeping_unit=skus[i % 5],
                                             quantity=Decimal('1.000'),
                                             location='test',
-                                            operation_date=date.today(),
                                             customer=test_customer,
                                             operation_id=i,
                                             date=datetime.now())
@@ -99,7 +98,6 @@ class ServiceLevelCalculationTest(TestCase):
                                                 stock_keeping_unit=skus[i % 5],
                                                 quantity=Decimal('1.000'),
                                                 location='test',
-                                                operation_date=date.today(),
                                                 customer=test_customer,
                                                 operation_id=i,
                                                 date=datetime.now()-timedelta(days=j))
@@ -156,7 +154,6 @@ class ServiceLevelCalculationTest(TestCase):
                                                 stock_keeping_unit=skus[i % 5],
                                                 quantity=Decimal('1.000'),
                                                 location='test',
-                                                operation_date=date.today(),
                                                 customer=test_customer,
                                                 operation_id=i,
                                                 date=datetime.now())
@@ -174,13 +171,11 @@ class ServiceLevelCalculationTest(TestCase):
             trace = 'expected:%(exp)s, result:%(res)s'
             trace = trace % {'exp' : expected_level,
                              'res' : res}
+            
             self.assertEqual(res[0], expected_level[0], trace)
             self.assertEqual(res[1], expected_level[1], trace)
         for item in created_items[::-1]:
             item.delete()
-            
-            
-            
             
     def test_one_hundred_percent_test_orders(self):
         created_items = []
@@ -214,7 +209,6 @@ class ServiceLevelCalculationTest(TestCase):
                                             stock_keeping_unit=skus[i % 5],
                                             quantity=Decimal('1.000'),
                                             location='test',
-                                            operation_date=date.today(),
                                             customer=test_customer,
                                             operation_id=i,
                                             date=datetime.now())
@@ -266,7 +260,6 @@ class ServiceLevelCalculationTest(TestCase):
                                                 stock_keeping_unit=skus[i % 5],
                                                 quantity=Decimal('1.000'),
                                                 location='test',
-                                                operation_date=date.today(),
                                                 customer=test_customer,
                                                 operation_id=i,
                                                 date=datetime.now()-timedelta(days=j))
@@ -323,7 +316,6 @@ class ServiceLevelCalculationTest(TestCase):
                                                 stock_keeping_unit=skus[i % 5],
                                                 quantity=Decimal('1.000'),
                                                 location='test',
-                                                operation_date=date.today(),
                                                 customer=test_customer,
                                                 operation_id=i,
                                                 date=datetime.now())
@@ -421,11 +413,4 @@ class ServiceLevelCalculationTest(TestCase):
             self.assertEqual(res[1], expected_level[1], trace)
         for item in created_items[::-1]:
             item.delete()
-
-class ImportTest(TestCase):
-    def test_import(self):
-        content = '''
-        1;lol;10.000
-        2;Blogas uzsakymas;2.300
-        1;Negautas uzsakymas;2.200'''
         

@@ -95,11 +95,10 @@ class Operation (models.Model):
     stock_keeping_unit = models.ForeignKey("StockKeepingUnit", verbose_name=_('Stock keeping unit'))
     quantity = models.DecimalField(_('Quantity'), max_digits=10, decimal_places=3, default = 0)
     location = models.CharField(_('Location'), max_length=20)
-    operation_date = models.DateField(_('Operation date'), auto_now_add=False)
     customer = models.ForeignKey("Customer", null=True, verbose_name=_('Customer'))
     operation_id = models.IntegerField(_('Operation ID'), null=True)
     date = models.DateTimeField(_('Date'), auto_now_add=True)
-    list_display = ('document', 'direction')
+    list_display = ('get_operation_id', 'date', 'document', 'direction')
     
     class Meta:
         verbose_name = _('Operation')
@@ -107,6 +106,11 @@ class Operation (models.Model):
         
     def __unicode__(self):
         return u'%(operation)s' % {'operation' : self.operation_id}
+    
+    def get_operation_id(self):
+        return self.operation_id or u'--'
+    get_operation_id.short_description = _('Operation ID')
+    get_operation_id.admin_order_field = 'operation_id'
     
 class Orderfailure (models.Model):
     date = models.DateTimeField(_('Date'), auto_now_add=True)
@@ -128,9 +132,9 @@ class Orderfailure (models.Model):
     def calculate_service_level(cls, date_from, date_to, group):
         time1 = time.time()
         date_to = date_to + timedelta(days=1)
-        operations = Operation.objects.filter(stock_keeping_unit__group=group,
+        operations = list(Operation.objects.filter(stock_keeping_unit__group=group,
                                               date__gte=date_from,
-                                              date__lte=date_to)
+                                              date__lte=date_to))
         time2 = time.time()
         print 'loaded', time2-time1
         dates = []
@@ -149,15 +153,17 @@ class Orderfailure (models.Model):
                                     hour=23,
                                     minute=59,
                                     second=59)
-            date_opers = operations.filter(date__gte=start,
-                                           date__lte=end)
+#             date_opers = operations.filter(date__gte=start,
+#                                            date__lte=end)
+            date_opers = [operation for operation in operations if operation.date >= start and operation.date <= end]
             
             fails = cls.objects.filter(operation__in=date_opers)
             
             
             failed_amount = fails.aggregate(Sum('amount'))['amount__sum'] or 0
             time3 = time.time()
-            operation_amount = date_opers.aggregate(Sum('quantity'))['quantity__sum'] or 0
+#             operation_amount = date_opers.aggregate(Sum('quantity'))['quantity__sum'] or 0
+            operation_amount = sum([o.quantity for o in date_opers])
             time4 = time.time()
             dates.append(time.mktime(start_date.timetuple())*1000)
             if operation_amount > 0:
@@ -174,9 +180,9 @@ class Orderfailure (models.Model):
     def calculate_service_level_by_orders(cls, date_from, date_to, group):
         time1 = time.time()
         date_to = date_to + timedelta(days=1)
-        operations = Operation.objects.filter(stock_keeping_unit__group=group,
+        operations = list(Operation.objects.filter(stock_keeping_unit__group=group,
                                               date__gte=date_from,
-                                              date__lte=date_to)
+                                              date__lte=date_to).only('date',))
         time2 = time.time()
         print 'loaded', time2-time1
         dates = []
@@ -195,15 +201,14 @@ class Orderfailure (models.Model):
                                     hour=23,
                                     minute=59,
                                     second=59)
-            date_opers = operations.filter(date__gte=start,
-                                           date__lte=end)
+            date_opers = [operation for operation in operations if operation.date >= start and operation.date <= end]
             
             fails = cls.objects.filter(operation__in=date_opers)
             
             
             failed_amount = fails.count()
             time3 = time.time()
-            operation_amount = date_opers.count()
+            operation_amount = len(date_opers)
             time4 = time.time()
             dates.append(time.mktime(start_date.timetuple())*1000)
             if operation_amount > 0:

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-01 19:43+0200\n"
+"POT-Creation-Date: 2013-12-09 11:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
 
@@ -86,176 +85,184 @@ msgstr "Eksportuoti į .csv failą"
 msgid "Import from .csv file"
 msgstr "Importuoti iš .csv failo"
 
-#: stock_info/forms.py:10
+#: stock_info/forms.py:12
 msgid "File name"
 msgstr ".csv failas"
 
-#: stock_info/forms.py:13
+#: stock_info/forms.py:17
+msgid "Anount percentage"
+msgstr ""
+
+#: stock_info/forms.py:18
+msgid "Order percentage"
+msgstr ""
+
+#: stock_info/forms.py:19
+msgid "Chart type"
+msgstr ""
+
+#: stock_info/forms.py:20
 msgid "Date from"
 msgstr "Periodo pradžia"
 
-#: stock_info/forms.py:14
+#: stock_info/forms.py:21
 msgid "Date to"
 msgstr "Periodo pabaiga"
 
-#: stock_info/forms.py:15 stock_info/models.py:45
+#: stock_info/forms.py:22 stock_info/models.py:48
 msgid "Group"
 msgstr "Grupė"
 
-#: stock_info/forms.py:18 stock_info/models.py:97
+#: stock_info/forms.py:31 stock_info/models.py:99 stock_info/models.py:112
 msgid "Operation ID"
 msgstr "Operacijos ID"
 
-#: stock_info/forms.py:27
+#: stock_info/forms.py:40
 msgid "Operation provided not found"
 msgstr "Nurodyta operacija nerasta"
 
-#: stock_info/models.py:10
+#: stock_info/models.py:13
 msgid "Customer ID"
 msgstr "Vartotojo ID"
 
-#: stock_info/models.py:11
+#: stock_info/models.py:14
 msgid "Name"
 msgstr "Vardas"
 
-#: stock_info/models.py:12
+#: stock_info/models.py:15
 msgid "City"
 msgstr "Miestas"
 
-#: stock_info/models.py:13
+#: stock_info/models.py:16
 msgid "Region"
 msgstr "Rajonas"
 
-#: stock_info/models.py:14
+#: stock_info/models.py:17
 msgid "Type"
 msgstr "Tipas"
 
-#: stock_info/models.py:15
+#: stock_info/models.py:18
 msgid "Shipping limit"
 msgstr "Pristatymo limitas"
 
-#: stock_info/models.py:16
+#: stock_info/models.py:19
 msgid "Address"
 msgstr "Adresas"
 
-#: stock_info/models.py:22 stock_info/models.py:96
+#: stock_info/models.py:25 stock_info/models.py:98
 msgid "Customer"
 msgstr "Vartotojas"
 
-#: stock_info/models.py:23
+#: stock_info/models.py:26
 msgid "Customers"
 msgstr "Vartotojai"
 
-#: stock_info/models.py:30 stock_info/models.py:60 stock_info/models.py:69
-#: stock_info/models.py:92
+#: stock_info/models.py:33 stock_info/models.py:63 stock_info/models.py:72
+#: stock_info/models.py:95
 msgid "Stock keeping unit"
 msgstr "Išteklių laikymo vienetas"
 
-#: stock_info/models.py:37 stock_info/models.py:38
+#: stock_info/models.py:40 stock_info/models.py:41
 msgid "Stock balance"
 msgstr "Išteklių balansas"
 
-#: stock_info/models.py:44
+#: stock_info/models.py:47
 msgid "Stock keeping unit ID"
 msgstr "Išteklių laikymo vieneto ID"
 
-#: stock_info/models.py:46 stock_info/models.py:70
+#: stock_info/models.py:49 stock_info/models.py:73
 msgid "Description"
 msgstr "Aprašymas"
 
-#: stock_info/models.py:47 stock_info/models.py:73
+#: stock_info/models.py:50 stock_info/models.py:76
 msgid "Units per parcel"
 msgstr "Vienetų pakete"
 
-#: stock_info/models.py:48 stock_info/models.py:74
+#: stock_info/models.py:51 stock_info/models.py:77
 msgid "Units per pallette"
 msgstr "Vienetų paletėje"
 
-#: stock_info/models.py:49
+#: stock_info/models.py:52
 msgid "Manufacturer"
 msgstr "Gamintojas"
 
-#: stock_info/models.py:50
+#: stock_info/models.py:53
 msgid "Country of origin"
 msgstr "Kilmės šalis"
 
-#: stock_info/models.py:51
+#: stock_info/models.py:54
 msgid "Traditional trade"
 msgstr "Įprasta prekyba"
 
-#: stock_info/models.py:52 stock_info/models.py:77 stock_info/models.py:94
+#: stock_info/models.py:55 stock_info/models.py:80 stock_info/models.py:97
 msgid "Location"
 msgstr "Vieta"
 
-#: stock_info/models.py:53 stock_info/models.py:71
+#: stock_info/models.py:56 stock_info/models.py:74
 msgid "Net weight"
 msgstr "Neto masė"
 
-#: stock_info/models.py:54 stock_info/models.py:76
+#: stock_info/models.py:57 stock_info/models.py:79
 msgid "Measurement unit"
 msgstr "Matavimo vienetas"
 
-#: stock_info/models.py:55
+#: stock_info/models.py:58
 msgid "Base units"
 msgstr "Pirminiai vienetai"
 
-#: stock_info/models.py:61
+#: stock_info/models.py:64
 msgid "Stock keeping units"
 msgstr "Išteklių laikymo vienetai"
 
-#: stock_info/models.py:72
+#: stock_info/models.py:75
 msgid "Brutto weight"
 msgstr "Blogoji masė"
 
-#: stock_info/models.py:75
+#: stock_info/models.py:78
 msgid "Shelf life period"
 msgstr "Galiojimo periodas"
 
-#: stock_info/models.py:82 stock_info/models.py:83
+#: stock_info/models.py:85 stock_info/models.py:86
 msgid "Log info"
 msgstr "Įrašų informacija"
 
-#: stock_info/models.py:90
+#: stock_info/models.py:93
 msgid "Document"
 msgstr "Dokumentas"
 
-#: stock_info/models.py:91
+#: stock_info/models.py:94
 msgid "Direction"
 msgstr "Kryptis"
 
-#: stock_info/models.py:93
+#: stock_info/models.py:96
 msgid "Quantity"
 msgstr "Kiekis"
 
-#: stock_info/models.py:95
-msgid "Operation date"
-msgstr "Operacijos laikas"
-
-#: stock_info/models.py:98 stock_info/models.py:110
+#: stock_info/models.py:100 stock_info/models.py:116
 msgid "Date"
 msgstr "Data"
 
-#: stock_info/models.py:103 stock_info/models.py:111
+#: stock_info/models.py:104 stock_info/models.py:117
 msgid "Operation"
 msgstr "Operacija"
 
-#: stock_info/models.py:104
+#: stock_info/models.py:105
 msgid "Operations"
 msgstr "Operacijos"
 
-#: stock_info/models.py:112
+#: stock_info/models.py:118
 msgid "Reason"
 msgstr "Priežastis"
 
-#: stock_info/models.py:113
+#: stock_info/models.py:119
 msgid "Amount"
 msgstr "Kiekis"
 
-#: stock_info/models.py:118
+#: stock_info/models.py:124
 msgid "Order failure"
 msgstr "Užsakymo neįvykdymas"
 
-#: stock_info/models.py:119
+#: stock_info/models.py:125
 msgid "Order failures"
 msgstr "Užsakymų neįvykdymai"
 
@@ -316,8 +323,8 @@ msgid ""
 "There's been an error. It's been reported to the site administrators via "
 "email and should be fixed shortly. Thanks for your patience."
 msgstr ""
-"Ištiko klaida. Apie ją buvo pranešta administratoriui elektroniniu paštu"
-"Klaida artimiausiu metu bus ištaisyta. Ačiū už jūsų kantrybę."
+"Ištiko klaida. Apie ją buvo pranešta administratoriui elektroniniu "
+"paštuKlaida artimiausiu metu bus ištaisyta. Ačiū už jūsų kantrybę."
 
 #: templates/admin/actions.html:4
 msgid "Available actions"
@@ -446,8 +453,9 @@ msgid ""
 "related objects, but your account doesn't have permission to delete the "
 "following types of objects:"
 msgstr ""
-"%(object_name)s '%(escaped_object)s' ištrynimas priverstų ištrinti susijusius objektus, "
-"tačiau jūsų vartotojui nesuteiktos teisės ištrinti šiuos objektų tipus:"
+"%(object_name)s '%(escaped_object)s' ištrynimas priverstų ištrinti "
+"susijusius objektus, tačiau jūsų vartotojui nesuteiktos teisės ištrinti "
+"šiuos objektų tipus:"
 
 #: templates/admin/delete_confirmation.html:26
 #, python-format
@@ -455,7 +463,8 @@ msgid ""
 "Deleting the %(object_name)s '%(escaped_object)s' would require deleting the "
 "following protected related objects:"
 msgstr ""
-"%(object_name)s '%(escaped_object)s' ištrynimas reikalautų šių susijusių objektų ištrynimo:"
+"%(object_name)s '%(escaped_object)s' ištrynimas reikalautų šių susijusių "
+"objektų ištrynimo:"
 
 #: templates/admin/delete_confirmation.html:34
 #, python-format
@@ -463,8 +472,8 @@ msgid ""
 "Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
 "All of the following related items will be deleted:"
 msgstr ""
-"Are tikrai norite ištrinti %(object_name)s \"%(escaped_object)s\"? "
-"Visi susiję objektai bus ištrinti:"
+"Are tikrai norite ištrinti %(object_name)s \"%(escaped_object)s\"? Visi "
+"susiję objektai bus ištrinti:"
 
 #: templates/admin/delete_confirmation.html:39
 #: templates/admin/delete_selected_confirmation.html:44
@@ -482,8 +491,8 @@ msgid ""
 "objects, but your account doesn't have permission to delete the following "
 "types of objects:"
 msgstr ""
-"%(objects_name)s ištrynimas priverstų ištrinti susijusius objektus, "
-"tačiau jūsų vartotojui nesuteiktos teisės ištrinti šiuos objektų tipus:"
+"%(objects_name)s ištrynimas priverstų ištrinti susijusius objektus, tačiau "
+"jūsų vartotojui nesuteiktos teisės ištrinti šiuos objektų tipus:"
 
 #: templates/admin/delete_selected_confirmation.html:25
 #, python-format
@@ -493,15 +502,14 @@ msgid ""
 msgstr ""
 "%(objects_name)s ištrynimas reikalautų šių susijusių objektų ištrynimo:"
 
-
 #: templates/admin/delete_selected_confirmation.html:33
 #, python-format
 msgid ""
 "Are you sure you want to delete the selected %(objects_name)s? All of the "
 "following objects and their related items will be deleted:"
 msgstr ""
-"Are tikrai norite ištrinti %(objects_name)s? "
-"Visi susiję objektai bus ištrinti:"
+"Are tikrai norite ištrinti %(objects_name)s? Visi susiję objektai bus "
+"ištrinti:"
 
 #: templates/admin/filter.html:2
 #, python-format
@@ -543,8 +551,8 @@ msgid ""
 "database tables have been created, and make sure the database is readable by "
 "the appropriate user."
 msgstr ""
-"Klaida jūsų duomenų bazės įdiegime. Įsitikinkite, jog sukurtos tinkamos duomenų bazių lentelės,"
-" ir jog duomenų bazė yra skaitoma atitinkamo vartotojo"
+"Klaida jūsų duomenų bazės įdiegime. Įsitikinkite, jog sukurtos tinkamos "
+"duomenų bazių lentelės, ir jog duomenų bazė yra skaitoma atitinkamo vartotojo"
 
 #: templates/admin/login.html:37
 msgid "Password:"
@@ -576,7 +584,8 @@ msgid ""
 "This object doesn't have a change history. It probably wasn't added via this "
 "admin site."
 msgstr ""
-"Šis objektas neturi pakeitimų istorijos. Turbūt jis nebuvo sukurtas per šią sistemą"
+"Šis objektas neturi pakeitimų istorijos. Turbūt jis nebuvo sukurtas per šią "
+"sistemą"
 
 #: templates/admin/pagination.html:10
 msgid "Show all"
@@ -619,7 +628,8 @@ msgid ""
 "First, enter a username and password. Then, you'll be able to edit more user "
 "options."
 msgstr ""
-"Pirmiausia, įveskite vartotojo vardą ir slaptažodį. Tada, jums bus leista redaguoti daugiau vartotojo parametrų."
+"Pirmiausia, įveskite vartotojo vardą ir slaptažodį. Tada, jums bus leista "
+"redaguoti daugiau vartotojo parametrų."
 
 #: templates/admin/auth/user/add_form.html:8
 msgid "Enter a username and password."
@@ -693,8 +703,8 @@ msgid ""
 "Please enter your old password, for security's sake, and then enter your new "
 "password twice so we can verify you typed it in correctly."
 msgstr ""
-"Prašome įvesti jūsų seną slaptažodį saugumo sumetimais. "
-"Tada, įveskite savo naująjį slaptažodį du kartus tam, kad įsitikintume, jog įvedėte teisingai"
+"Prašome įvesti jūsų seną slaptažodį saugumo sumetimais. Tada, įveskite savo "
+"naująjį slaptažodį du kartus tam, kad įsitikintume, jog įvedėte teisingai"
 
 #: templates/registration/password_change_form.html:32
 msgid "Old password"
@@ -740,7 +750,8 @@ msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
 msgstr ""
-"Prašome įvesti naują slaptažodį du kartus, kad įsitikintume, jog įvedėte teisingai."
+"Prašome įvesti naują slaptažodį du kartus, kad įsitikintume, jog įvedėte "
+"teisingai."
 
 #: templates/registration/password_reset_confirm.html:23
 msgid "New password:"
@@ -759,8 +770,8 @@ msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used.  Please request a new password reset."
 msgstr ""
-"Slaptažodžio pakeitimas prašymas nesėkmingas, turbūt dėl to, jog jis jau buvo panaudotas"
-"Prašykite naujo slaptažodžio pakeitimo."
+"Slaptažodžio pakeitimas prašymas nesėkmingas, turbūt dėl to, jog jis jau "
+"buvo panaudotasPrašykite naujo slaptažodžio pakeitimo."
 
 #: templates/registration/password_reset_done.html:11
 #: templates/registration/password_reset_done.html:15
@@ -772,8 +783,8 @@ msgid ""
 "We've emailed you instructions for setting your password to the email "
 "address you submitted. You should be receiving it shortly."
 msgstr ""
-"Mes nusiuntėme jums elektroniniu paštu instrukciją dėl slaptažodžio nustatymo. "
-"Greitu metu turėtumėte gauti laišką"
+"Mes nusiuntėme jums elektroniniu paštu instrukciją dėl slaptažodžio "
+"nustatymo. Greitu metu turėtumėte gauti laišką"
 
 #: templates/registration/password_reset_email.html:2
 #, python-format
@@ -781,8 +792,8 @@ msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at %(site_name)s."
 msgstr ""
-"Jūs gavote šį laišką, nes prašėte slaptažodžio pakeitimo jūsų vartotojui %(site_name)s puslapyje."
-
+"Jūs gavote šį laišką, nes prašėte slaptažodžio pakeitimo jūsų vartotojui "
+"%(site_name)s puslapyje."
 
 #: templates/registration/password_reset_email.html:4
 msgid "Please go to the following page and choose a new password:"
@@ -806,8 +817,8 @@ msgid ""
 "Forgotten your password? Enter your email address below, and we'll email "
 "instructions for setting a new one."
 msgstr ""
-"Pamiršote savo slaptažodį? Įveskite elektroninio pašto adresą žemiau, ir jums atsiųsime"
-" nuorodą susikurti naują slaptažodį"
+"Pamiršote savo slaptažodį? Įveskite elektroninio pašto adresą žemiau, ir "
+"jums atsiųsime nuorodą susikurti naują slaptažodį"
 
 #: templates/registration/password_reset_form.html:21
 msgid "Email address:"
@@ -818,6 +829,9 @@ msgid "Reset my password"
 msgstr "Pakeisti mano slaptažodį"
 
 #: templates/stock_info/fileimport.html:41
-#: templates/stock_info/quality_service.html:39
+#: templates/stock_info/quality_service.html:43
 msgid "OK"
 msgstr "Gerai"
+
+#~ msgid "Operation date"
+#~ msgstr "Operacijos laikas"
