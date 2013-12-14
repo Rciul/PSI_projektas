@@ -7,6 +7,7 @@ from django.forms.models import ModelForm
 from PSI_projektas.stock_info.models import Orderfailure, Operation,\
     StockKeepingUnit
 from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import PasswordChangeForm
 
 class FileForm(Form):
     file_name = FileField(label=ugettext_lazy('File name'))
@@ -28,14 +29,38 @@ class QualityForm(Form):
         self.fields['group'].choices = StockKeepingUnit.objects.all().values_list('group','group').distinct()
 
 class OrderFailureForm(ModelForm):
-    operation = IntegerField(label=ugettext_lazy('Operation ID'))
+    custom_operation = IntegerField(label=ugettext_lazy('Operation ID'))
     
     class Meta:
         model = Orderfailure
+        fields = ('custom_operation', 'reason', 'amount')
         
     def clean_operation(self, *args, **kwargs):
-        operation_id = self.cleaned_data['operation']
+        operation_id = self.cleaned_data['custom_operation']
         operations = Operation.objects.filter(operation_id=operation_id)
         if operations.count() == 0:
             raise ValidationError(ugettext_lazy('Operation provided not found'))
         return operations[0]
+    
+    def save_model(self, commit=True):
+        value = self.cleaned_data['custom_operation']
+        self.instance.operation = Operation.objects.get(operation_id=value)
+        ModelForm.save_model(self, commit)
+    
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+        if self.instance:
+            self.fields['custom_operation'].initial = self.instance.operation.operation_id
+    
+class ValidatingUserForm(PasswordChangeForm):
+    def save(self, commit=True):
+        import pdb; pdb.set_trace()
+        return PasswordChangeForm.save(self, commit=commit)
+    
+    MIN_LENGTH = 6
+    
+    def clean_new_password1(self):
+        password1 = self.cleaned_data.get('new_password1')
+        if len(password1) < self.MIN_LENGTH:
+            raise ValidationError(ugettext_lazy('Password is too short'))
+        return password1

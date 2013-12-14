@@ -144,10 +144,10 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'contrib',
     'django.contrib.admin',
-    'django_nvd3'
+    'django_nvd3',
     #'oracle'
     # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admindocs',
 )
  
 # A sample logging configuration. The only tangible logging

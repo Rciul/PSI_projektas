@@ -41,8 +41,17 @@
             </fieldset>
             <div class="submit-row">
                 <input type="submit" value="{% trans 'OK' %}"/>
+                <input type="button" value="{% trans 'Print' %}" onclick="redirect();"/>
             </div>
         </div>
     </form>
 </div>
+<script type="text/javascript">
+	function redirect(){
+		var href = document.location.href;
+		href = href + '&print=1';
+		document.location.href = href;
+	}
+</script>
 {% endblock %}
+
