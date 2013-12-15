@@ -50,7 +50,10 @@ class OrderFailureForm(ModelForm):
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
         if self.instance:
-            self.fields['custom_operation'].initial = self.instance.operation.operation_id
+            try:
+                self.fields['custom_operation'].initial = self.instance.operation.operation_id
+            except:
+                pass
     
 class ValidatingUserForm(PasswordChangeForm):
     def save(self, commit=True):
