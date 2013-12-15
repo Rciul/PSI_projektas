@@ -57,7 +57,6 @@ class OrderFailureForm(ModelForm):
     
 class ValidatingUserForm(PasswordChangeForm):
     def save(self, commit=True):
-        import pdb; pdb.set_trace()
         return PasswordChangeForm.save(self, commit=commit)
     
     MIN_LENGTH = 6
@@ -65,5 +64,5 @@ class ValidatingUserForm(PasswordChangeForm):
     def clean_new_password1(self):
         password1 = self.cleaned_data.get('new_password1')
         if len(password1) < self.MIN_LENGTH:
-            raise ValidationError(ugettext_lazy('Password is too short'))
+            raise ValidationError(ugettext_lazy('Password must be at least 6 characters length'))
         return password1

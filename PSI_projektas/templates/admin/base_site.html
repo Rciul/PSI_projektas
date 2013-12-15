@@ -24,7 +24,7 @@
 		</li>
 		<li>
 		{% if user.has_usable_password %}
-            <a href="{% url 'admin:password_change' %}">{% trans 'Change user data' %}</a>	
+            <a href="/admin/change_pswd">{% trans 'Change user data' %}</a>	
         {% endif %}
         </li>
 	</ul>
