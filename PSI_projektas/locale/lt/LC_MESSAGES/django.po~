@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-09 11:02+0200\n"
+"POT-Creation-Date: 2013-12-16 02:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,41 +85,45 @@ msgstr "Eksportuoti į .csv failą"
 msgid "Import from .csv file"
 msgstr "Importuoti iš .csv failo"
 
-#: stock_info/forms.py:12
+#: stock_info/forms.py:13
 msgid "File name"
 msgstr ".csv failas"
 
-#: stock_info/forms.py:17
-msgid "Anount percentage"
-msgstr ""
-
 #: stock_info/forms.py:18
-msgid "Order percentage"
-msgstr ""
+msgid "Anount percentage"
+msgstr "Pagal prekių kiekį"
 
 #: stock_info/forms.py:19
-msgid "Chart type"
-msgstr ""
+msgid "Order percentage"
+msgstr "Pagal užsakymų įvykdymo dalį"
 
 #: stock_info/forms.py:20
+msgid "Chart type"
+msgstr "Diagramos tipas"
+
+#: stock_info/forms.py:21
 msgid "Date from"
 msgstr "Periodo pradžia"
 
-#: stock_info/forms.py:21
+#: stock_info/forms.py:22
 msgid "Date to"
 msgstr "Periodo pabaiga"
 
-#: stock_info/forms.py:22 stock_info/models.py:48
+#: stock_info/forms.py:23 stock_info/models.py:48
 msgid "Group"
 msgstr "Grupė"
 
-#: stock_info/forms.py:31 stock_info/models.py:99 stock_info/models.py:112
+#: stock_info/forms.py:32 stock_info/models.py:99 stock_info/models.py:112
 msgid "Operation ID"
 msgstr "Operacijos ID"
 
-#: stock_info/forms.py:40
+#: stock_info/forms.py:42
 msgid "Operation provided not found"
 msgstr "Nurodyta operacija nerasta"
+
+#: stock_info/forms.py:67
+msgid "Password must be at least 6 characters length"
+msgstr ""
 
 #: stock_info/models.py:13
 msgid "Customer ID"
@@ -266,20 +270,29 @@ msgstr "Užsakymo neįvykdymas"
 msgid "Order failures"
 msgstr "Užsakymų neįvykdymai"
 
-#: stock_info/views.py:79
+#: stock_info/views.py:86
 #, python-format
 msgid "Not found operations: %d"
 msgstr "Nerastos operacijos : %d "
 
-#: stock_info/views.py:81
+#: stock_info/views.py:88
 #, python-format
 msgid "Failed rows: %d"
 msgstr "Nesėkmingos eilutės: %d"
 
-#: stock_info/views.py:85
+#: stock_info/views.py:92
 #, python-format
 msgid "Success: %s rows"
 msgstr "Pavykę: %s eilutės"
+
+#: stock_info/views.py:94
+#, fuzzy
+msgid "Import failed"
+msgstr "Importuoti iš .csv failo"
+
+#: stock_info/views.py:105 stock_info/views.py:126
+msgid "Enter a correct date"
+msgstr ""
 
 #: templates/admin/404.html:4 templates/admin/404.html.py:8
 msgid "Page not found"
@@ -291,13 +304,11 @@ msgstr "Atsiprašome, bet puslapis nerastas"
 
 #: templates/admin/500.html:6 templates/admin/app_index.html:7
 #: templates/admin/base.html:45 templates/admin/base_site.html:16
-#: templates/admin/change_form.html:19 templates/admin/change_list.html:34
 #: templates/admin/delete_confirmation.html:7
 #: templates/admin/delete_selected_confirmation.html:7
 #: templates/admin/invalid_setup.html:6 templates/admin/object_history.html:7
 #: templates/admin/auth/user/change_password.html:13
 #: templates/registration/logged_out.html:4
-#: templates/registration/password_change_done.html:6
 #: templates/registration/password_change_form.html:7
 #: templates/registration/password_reset_complete.html:6
 #: templates/registration/password_reset_confirm.html:6
@@ -396,21 +407,17 @@ msgstr "Užsakymų neįvykdymo priežasčių sąrašas"
 msgid "Change user data"
 msgstr "Pakeisti vartotojo duomenis"
 
-#: templates/admin/change_form.html:22 templates/admin/index.html:84
-msgid "Add"
-msgstr "Pridėti"
-
-#: templates/admin/change_form.html:32 templates/admin/object_history.html:11
+#: templates/admin/change_form.html:26 templates/admin/object_history.html:11
 msgid "History"
 msgstr "Istorija"
 
-#: templates/admin/change_form.html:33
+#: templates/admin/change_form.html:27
 #: templates/admin/edit_inline/stacked.html:9
 #: templates/admin/edit_inline/tabular.html:30
 msgid "View on site"
 msgstr "Peržiūrėti puslapyje"
 
-#: templates/admin/change_form.html:44 templates/admin/change_list.html:60
+#: templates/admin/change_form.html:38 templates/admin/change_list.html:56
 #: templates/admin/login.html:17
 #: templates/admin/auth/user/change_password.html:27
 #: templates/registration/password_change_form.html:20
@@ -419,12 +426,12 @@ msgid_plural "Please correct the errors below."
 msgstr[0] "Prašome ištaisyti klaidas žemiau"
 msgstr[1] "Prašome ištaisyti klaidas žemiau"
 
-#: templates/admin/change_list.html:51
+#: templates/admin/change_list.html:47
 #, python-format
 msgid "Add %(name)s"
 msgstr "Pridėti %(name)s"
 
-#: templates/admin/change_list.html:71
+#: templates/admin/change_list.html:67
 msgid "Filter"
 msgstr "Filtras"
 
@@ -520,6 +527,10 @@ msgstr "Pagal %(filter_title)s "
 #, python-format
 msgid "Models in the %(name)s application"
 msgstr "Modeliai %(name)s aplikacijoje"
+
+#: templates/admin/index.html:84
+msgid "Add"
+msgstr "Pridėti"
 
 #: templates/admin/index.html:90
 msgid "Change"
@@ -683,20 +694,19 @@ msgid "Log in again"
 msgstr "Prisijungti vėl"
 
 #: templates/registration/password_change_done.html:7
+#: templates/registration/password_change_done.html:11
+msgid "Password change successful"
+msgstr "Slaptažodžio pakeitimas sėkmingas"
+
+#: templates/registration/password_change_done.html:13
+msgid "Your password was changed."
+msgstr "Jūsų slaptažodis pakeistas"
+
 #: templates/registration/password_change_form.html:8
 #: templates/registration/password_change_form.html:12
 #: templates/registration/password_change_form.html:24
 msgid "Password change"
 msgstr "Slaptažodžio pakeitimas"
-
-#: templates/registration/password_change_done.html:11
-#: templates/registration/password_change_done.html:15
-msgid "Password change successful"
-msgstr "Slaptažodžio pakeitimas sėkmingas"
-
-#: templates/registration/password_change_done.html:17
-msgid "Your password was changed."
-msgstr "Jūsų slaptažodis pakeistas"
 
 #: templates/registration/password_change_form.html:26
 msgid ""
@@ -832,6 +842,10 @@ msgstr "Pakeisti mano slaptažodį"
 #: templates/stock_info/quality_service.html:43
 msgid "OK"
 msgstr "Gerai"
+
+#: templates/stock_info/quality_service.html:44
+msgid "Print"
+msgstr ""
 
 #~ msgid "Operation date"
 #~ msgstr "Operacijos laikas"
